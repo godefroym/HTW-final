@@ -40,6 +40,8 @@ outputs/*
 !outputs/dynamic_maze_vision_jepa_20260620_121344/
 !outputs/dynamic_maze_vision_jepa_20260620_121344/**
 outputs/dynamic_maze_vision_jepa_20260620_121344/slurm_logs/
+!outputs/slides_assets/
+!outputs/slides_assets/**
 
 # Office/editor temporary files
 ~$*
