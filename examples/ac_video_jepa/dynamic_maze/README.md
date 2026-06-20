@@ -239,6 +239,16 @@ The output contains:
 - `demo_frame_start.png`, `demo_frame_mid.png`: combined debug frames;
 - `vision_episode.gif`: oracle-replan episode rendered with perceptual views.
 
+The full image-based training run uses the same renderer through
+`data.observation_mode=vision`:
+
+```bash
+bash scripts/htw_dynamic_maze_vision_slurm.sh
+```
+
+This trains a JEPA directly on `[up, down, left, right] x 128 x 128` rendered
+frames, then evaluates an A*-free `vision_repr_dist` planner with GIF export.
+
 ## Current Starter Run
 
 Run directory on Dalia:

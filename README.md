@@ -85,6 +85,12 @@ Run the BeliefLSTM value variant:
 bash scripts/htw_dynamic_maze_belief_lstm_slurm.sh
 ```
 
+Run the image-based egocentric vision JEPA:
+
+```bash
+bash scripts/htw_dynamic_maze_vision_slurm.sh
+```
+
 Run the currently queued blocked-transition penalty variant:
 
 ```bash

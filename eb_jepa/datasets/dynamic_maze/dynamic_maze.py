@@ -14,6 +14,10 @@ import numpy as np
 import torch
 
 from eb_jepa.datasets.dynamic_maze.normalizer import DynamicMazeNormalizer
+from eb_jepa.datasets.dynamic_maze.vision_renderer import (
+    VisionRenderConfig,
+    render_four_views,
+)
 from eb_jepa.datasets.maze.maze_dataset import cell_to_pixel, render_dot
 from eb_jepa.datasets.maze.maze_generator import generate_maze
 from eb_jepa.datasets.maze.maze_solver import DIRECTIONS, solve_a_star
@@ -36,6 +40,11 @@ class DynamicMazeDatasetConfig:
     maze_width: int = 21
     cell_size: int = 3
     img_size: int = 63
+    observation_mode: str = "grid"
+    vision_fov_degrees: float = 82.0
+    vision_vertical_fov_degrees: float = 68.0
+    vision_max_depth: float = 24.0
+    vision_goal_marker: bool = True
 
     n_steps: int = 129
     sample_length: int = 17
@@ -190,6 +199,34 @@ def render_observation(
     return torch.stack([dot, wall_img, unknown_img, door_img], dim=0)
 
 
+def render_vision_observation(
+    agent_cell: np.ndarray,
+    goal_cell: np.ndarray,
+    base_grid: np.ndarray,
+    door_cells: np.ndarray,
+    door_open: np.ndarray,
+    config: DynamicMazeDatasetConfig,
+    device: torch.device,
+) -> torch.Tensor:
+    """Render four egocentric grayscale views as uint8 [4, H, W]."""
+    grid = _current_grid(base_grid, door_cells, door_open, (agent_cell, goal_cell))
+    render_cfg = VisionRenderConfig(
+        image_size=int(config.img_size),
+        fov_degrees=float(config.vision_fov_degrees),
+        vertical_fov_degrees=float(config.vision_vertical_fov_degrees),
+        max_depth=float(config.vision_max_depth),
+        goal_marker=bool(config.vision_goal_marker),
+    )
+    views = render_four_views(
+        grid,
+        agent_cell,
+        goal_cell=goal_cell,
+        door_cells=door_cells,
+        config=render_cfg,
+    )
+    return torch.from_numpy(views).to(device)
+
+
 def observation_to_rgb(obs: torch.Tensor) -> np.ndarray:
     """Convert a 4-channel dynamic-maze observation to an RGB debug frame."""
     arr = obs.detach().cpu().numpy()
@@ -314,7 +351,11 @@ class DynamicMazeEnv(gym.Env):
             self.config.fog_metric,
         )
 
-    def step(self, action) -> Tuple[ObsType, float, bool, bool, InfoType]:
+    def step(
+        self,
+        action,
+        render_observation: bool = True,
+    ) -> Tuple[ObsType, float, bool, bool, InfoType]:
         if isinstance(action, torch.Tensor):
             action_np = action.detach().cpu().numpy()
         else:
@@ -351,7 +392,8 @@ class DynamicMazeEnv(gym.Env):
         reward = 1.0 if done else 0.0
         info = self._build_info()
         info["moved"] = moved
-        return self._render(), reward, done, truncated, info
+        obs = self._render() if render_observation else None
+        return obs, reward, done, truncated, info
 
     def _pixel_to_cell(self, pixel):
         if isinstance(pixel, torch.Tensor):
@@ -362,6 +404,20 @@ class DynamicMazeEnv(gym.Env):
         return cell.astype(np.int32)
 
     def _render(self):
+        if self.config.observation_mode == "vision":
+            return render_vision_observation(
+                self.agent_cell,
+                self.goal_cell,
+                self.base_grid,
+                self.door_cells,
+                self.door_open,
+                self.config,
+                self.device,
+            )
+        if self.config.observation_mode != "grid":
+            raise ValueError(
+                "DynamicMazeDatasetConfig.observation_mode must be 'grid' or 'vision'"
+            )
         return render_observation(
             self.agent_cell,
             self.goal_cell,
@@ -570,6 +626,9 @@ class DynamicMazeDataset(torch.utils.data.Dataset):
             normalize=False,
         )
         obs, _ = env.reset()
+        if cfg.observation_mode == "vision":
+            return self._generate_multistep_sample_sparse_render(env, rng)
+
         states, actions, locations = [], [], []
         for _ in range(cfg.n_steps):
             states.append(obs.detach().cpu())
@@ -588,6 +647,48 @@ class DynamicMazeDataset(torch.utils.data.Dataset):
         states = states[start : start + sl]
         actions_t = actions_t[start : start + sl]
         locations_t = locations_t[start : start + sl]
+
+        if cfg.normalize and self.normalizer is not None:
+            states = self.normalizer.normalize_state(states)
+            locations_t = self.normalizer.normalize_location(locations_t)
+
+        states = states.permute(1, 0, 2, 3).unsqueeze(0)
+        actions_t = actions_t.permute(1, 0).unsqueeze(0)
+        locations_t = locations_t.permute(1, 0).unsqueeze(0)
+        return DynamicMazeSample(
+            states=states,
+            actions=actions_t,
+            locations=locations_t,
+            wall_x=torch.zeros(1),
+            door_y=torch.zeros(1),
+        )
+
+    def _generate_multistep_sample_sparse_render(
+        self,
+        env: DynamicMazeEnv,
+        rng: np.random.Generator,
+    ):
+        """Generate a vision sample while rendering only the sampled time window."""
+        cfg = self.config
+        sl = cfg.sample_length
+        max_start = max(0, cfg.n_steps - sl)
+        start = int(rng.integers(0, max_start + 1)) if max_start > 0 else 0
+        stop = start + sl
+
+        states, actions, locations = [], [], []
+        for t in range(cfg.n_steps):
+            in_window = start <= t < stop
+            if in_window:
+                states.append(env._render().detach().cpu())
+                locations.append(env.dot_position.detach().cpu())
+            action = env.policy_action(cfg.teacher_policy)
+            if in_window:
+                actions.append(torch.from_numpy(action.astype(np.float32)))
+            env.step(action, render_observation=False)
+
+        states = torch.stack(states, dim=0).float()
+        actions_t = torch.stack(actions, dim=0).float()
+        locations_t = torch.stack(locations, dim=0).float()
 
         if cfg.normalize and self.normalizer is not None:
             states = self.normalizer.normalize_state(states)

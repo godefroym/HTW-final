@@ -1,0 +1,85 @@
+# Dynamic Maze vision WM: egocentric 2.5D rendered observations.
+#
+# The model receives four grayscale perspective views instead of the symbolic
+# fog/grid channels:
+#   [up, down, left, right] x 128 x 128
+logging:
+  log_wandb: false
+  wandb_group:
+  wandb_sweep:
+  log_every: 10
+  exp_suffix: dynamic_maze_vision_wm
+  save_every_n_epochs: 1
+  tqdm_silent: false
+meta:
+  model_folder:
+  init_from:
+  load_model: false
+  enable_plan_eval: false
+  eval_every_itr: -1
+  light_eval_freq: 100
+  seed: 7
+data:
+  env_name: dynamic_maze
+  observation_mode: vision
+  img_size: 128
+  batch_size: 64
+  size: 4096
+  val_size: 256
+  sample_length: 17
+  n_steps: 65
+  min_path_length: 50
+  layout_use_astar_filter: true
+  num_doors: 8
+  door_initial_open_prob: 0.35
+  door_toggle_prob: 0.04
+  fog_radius: 4
+  teacher_policy: oracle_replan
+  vision_fov_degrees: 82.0
+  vision_vertical_fov_degrees: 68.0
+  vision_max_depth: 24.0
+  vision_goal_marker: true
+  num_workers: 0
+  pin_mem: false
+  persistent_workers: false
+  pipeline:
+    mode: stream
+    backend: cpu
+    num_gen_workers: 16
+    chunk_size: 512
+    dtype: bfloat16
+training:
+  use_amp: true
+  dtype: bfloat16
+model:
+  compile: false
+  dobs: 4
+  henc: 128
+  hpre: 128
+  dstc: 128
+  nsteps: 8
+  encoder_architecture: impala
+  train_rollout: last
+  encoder_skip_connections: true
+  predictor_skip_connections: true
+  aux_pos_coeff: 0.0
+  value_coeff: 0.0
+  regularizer:
+    cov_coeff: 8
+    std_coeff: 16
+    sim_coeff_t: 12
+    idm_coeff: 1
+    first_t_only: false
+    spatial_as_samples: false
+    use_proj: false
+    idm_after_proj: false
+    sim_t_after_proj: false
+optim:
+  epochs: 3
+  lr: 0.0002
+  grad_clip_enc: 2.0
+  grad_clip_pred: 2.0
+  weight_decay: 1.e-5
+eval:
+  plan_cfg_path:
+  eval_cfg_path:

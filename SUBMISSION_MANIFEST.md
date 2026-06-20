@@ -12,6 +12,7 @@
   - BeliefLSTM value evaluation,
   - gate-layout visualization,
   - lightweight egocentric 3D-vision POC renderer,
+  - image-based Dynamic Maze vision JEPA training/evaluation launcher,
   - report builder.
 - Slurm launchers used for Dalia runs.
 - Curated outputs: metrics, GIFs, PDF report, PPTX presentation, and
