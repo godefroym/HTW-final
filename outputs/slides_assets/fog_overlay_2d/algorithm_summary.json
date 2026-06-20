@@ -1,0 +1,92 @@
+{
+  "methods": [
+    {
+      "method": "repr_dist",
+      "attempt": 0,
+      "success": true,
+      "moves": 56,
+      "blocked_moves": 32,
+      "final_manhattan": 0,
+      "frames": 57,
+      "lookahead": 4,
+      "astar_free": true,
+      "gif": "repr_dist_positive_fullmaze_fog_overlay.gif"
+    },
+    {
+      "method": "learned_value",
+      "attempt": 0,
+      "success": true,
+      "moves": 60,
+      "blocked_moves": 39,
+      "final_manhattan": 0,
+      "frames": 61,
+      "lookahead": 4,
+      "astar_free": true,
+      "gif": "learned_value_positive_fullmaze_fog_overlay.gif"
+    },
+    {
+      "method": "probe_pos",
+      "attempt": 0,
+      "success": true,
+      "moves": 172,
+      "blocked_moves": 95,
+      "final_manhattan": 0,
+      "frames": 173,
+      "lookahead": 4,
+      "astar_free": true,
+      "gif": "probe_pos_positive_fullmaze_fog_overlay.gif"
+    },
+    {
+      "method": "belief_value",
+      "attempt": 0,
+      "success": true,
+      "moves": 60,
+      "blocked_moves": 39,
+      "final_manhattan": 0,
+      "frames": 61,
+      "lookahead": 4,
+      "belief_hidden_dim": 256,
+      "astar_free": true,
+      "gif": "belief_value_positive_fullmaze_fog_overlay.gif"
+    },
+    {
+      "method": "jepa_subgoal_n2",
+      "attempt": 0,
+      "success": true,
+      "moves": 56,
+      "blocked_moves": 48,
+      "final_manhattan": 0,
+      "frames": 57,
+      "N": 2,
+      "lookahead": 2,
+      "initial_astar_len": 60,
+      "efficiency": 1.0,
+      "astar_free": true,
+      "gif": "jepa_subgoal_n2_positive_fullmaze_fog_overlay.gif"
+    },
+    {
+      "method": "jepa_subgoal_n4",
+      "attempt": 0,
+      "success": true,
+      "moves": 56,
+      "blocked_moves": 48,
+      "final_manhattan": 0,
+      "frames": 57,
+      "N": 4,
+      "lookahead": 4,
+      "initial_astar_len": 60,
+      "efficiency": 1.0,
+      "astar_free": true,
+      "gif": "jepa_subgoal_n4_positive_fullmaze_fog_overlay.gif"
+    }
+  ],
+  "fps": 2.0,
+  "scale": 18,
+  "search_episodes": 8,
+  "max_steps": 800,
+  "bootstrap_ckpt": "/lustre/work/vivatech-goma/gmeynard/runs/dynamic_maze_bootstrap_20260620_051011/00_bootstrap_wm_value/latest.pth.tar",
+  "belief_ckpt": "/lustre/work/vivatech-goma/gmeynard/runs/dynamic_maze_belief_lstm_20260620_085948/00_belief_value/latest.pth.tar",
+  "subgoal_fine_ckpt": "/lustre/work/vivatech-goma/gmeynard/runs/dynamic_maze_jepa_subgoal_starter_20260620_034609/00_wm_astar/latest.pth.tar",
+  "subgoal_n2_ckpt": "/lustre/work/vivatech-goma/gmeynard/runs/dynamic_maze_jepa_subgoal_starter_20260620_034609/01_subgoal_N2/subgoal.pth.tar",
+  "subgoal_n4_ckpt": "/lustre/work/vivatech-goma/gmeynard/runs/dynamic_maze_jepa_subgoal_starter_20260620_034609/01_subgoal_N4/subgoal.pth.tar"
+}
