@@ -23,6 +23,9 @@ costs beat brittle symbolic baselines when the visible map is incomplete.
 - `scripts/`: Slurm launchers used on Dalia.
 - `outputs/dynamic_maze_solver_report_20260620/`: curated metrics, GIFs, PDF
   report, and PowerPoint deck with embedded animated GIFs.
+- `outputs/dynamic_maze_vision_poc_20260620/`: lightweight egocentric 3D-vision
+  POC that renders `[up, down, left, right] x 128 x 128` grayscale observations
+  without Chromium, Three.js, or OpenGL.
 
 Intentionally excluded: unrelated EB-JEPA examples, local virtualenvs, caches,
 SSH keys, checkpoints, full Slurm run folders, and raw temporary files.
@@ -53,6 +56,7 @@ the subgoal training loss.
 - Full report: `outputs/dynamic_maze_solver_report_20260620/DYNAMIC_MAZE_SOLVER_REPORT.pdf`
 - Animated GIF evidence: `outputs/dynamic_maze_solver_report_20260620/gifs/`
 - Machine-readable metrics: `outputs/dynamic_maze_solver_report_20260620/summary_metrics.json`
+- 3D-vision POC GIF: `outputs/dynamic_maze_vision_poc_20260620/vision_episode.gif`
 
 ## Reproduce On Dalia
 
@@ -93,6 +97,15 @@ Regenerate the report from available run outputs:
 
 ```bash
 python scripts/build_dynamic_maze_solver_report.py
+```
+
+Generate the lightweight egocentric vision POC:
+
+```bash
+python -m examples.ac_video_jepa.dynamic_maze.render_vision_poc \
+  --out outputs/dynamic_maze_vision_poc_20260620 \
+  --seed 7 \
+  --image-size 128
 ```
 
 ## Current Follow-Up

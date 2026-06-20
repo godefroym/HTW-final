@@ -11,9 +11,11 @@
   - bootstrap value / probe-pos / repr-dist evaluation,
   - BeliefLSTM value evaluation,
   - gate-layout visualization,
+  - lightweight egocentric 3D-vision POC renderer,
   - report builder.
 - Slurm launchers used for Dalia runs.
-- Curated outputs: metrics, GIFs, PDF report, and PPTX presentation.
+- Curated outputs: metrics, GIFs, PDF report, PPTX presentation, and
+  lightweight 3D-vision POC frames.
 
 ## Removed From The Clean Snapshot
 

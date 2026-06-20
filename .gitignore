@@ -35,6 +35,8 @@ outputs/*
 !outputs/dynamic_maze_bootstrap_20260620_051011/**
 !outputs/dynamic_maze_belief_lstm_20260620_085948/
 !outputs/dynamic_maze_belief_lstm_20260620_085948/**
+!outputs/dynamic_maze_vision_poc_20260620/
+!outputs/dynamic_maze_vision_poc_20260620/**
 
 # Office/editor temporary files
 ~$*

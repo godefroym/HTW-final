@@ -50,6 +50,7 @@ appear as free cells in channel 2 and as doors in channel 4.
 - [x] Run first no-A* bootstrap WM/value experiment.
 - [x] Add BeliefLSTM memory value variant.
 - [x] Run and evaluate BeliefLSTM memory value variant.
+- [x] Add lightweight 3D-vision POC renderer for egocentric WM observations.
 - [ ] Run sweeps over `door_toggle_prob`, `num_doors`, and `fog_radius`.
 - [ ] Improve learned value so it beats `repr_dist` under the same budget.
 - [ ] Add uncertainty/Gaussian regularization experiment.
@@ -209,6 +210,34 @@ memory/value module for 4 epochs on the frozen bootstrap WM.
 The memory variant improves over the first learned value head, but it still does
 not beat `repr_dist`. It is nevertheless closer to the Track 7 story because it
 uses an explicit recurrent belief state under partial observability.
+
+## Lightweight 3D-Vision POC
+
+The POC renderer replaces the symbolic 2D grid observation with four
+egocentric grayscale views:
+
+```text
+[up, down, left, right] x 128 x 128
+```
+
+It uses an analytic 2.5D raycaster over the dynamic grid, so it does not depend
+on Three.js, Chromium, OpenGL, or EGL. At dataset time, the current occupancy
+grid and stochastic door states are rendered on the fly from the agent cell.
+
+```bash
+python -m examples.ac_video_jepa.dynamic_maze.render_vision_poc \
+  --out outputs/dynamic_maze_vision_poc_20260620 \
+  --seed 7 \
+  --image-size 128
+```
+
+The output contains:
+
+- `topdown_start.png`: debug top-down map;
+- `four_views_start.png`: the initial 4-channel egocentric observation;
+- `four_views_start.npy`: raw `[4, 128, 128]` uint8 tensor;
+- `demo_frame_start.png`, `demo_frame_mid.png`: combined debug frames;
+- `vision_episode.gif`: oracle-replan episode rendered with perceptual views.
 
 ## Current Starter Run
 
