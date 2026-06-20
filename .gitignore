@@ -1,0 +1,41 @@
+.DS_Store
+__pycache__/
+*.py[cod]
+*.so
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.venv/
+venv/
+
+# Local secrets / cluster access
+ssh/
+*.pem
+id_rsa*
+goma@gmeynard
+
+# Training artifacts that should not be committed by default
+runs/
+checkpoints/
+wandb/
+slurm_logs/
+slurm-*.out
+slurm-*.err
+*.pth
+*.pth.tar
+*.ckpt
+
+# Keep curated report outputs, ignore ad hoc generated outputs.
+outputs/*
+!outputs/dynamic_maze_solver_report_20260620/
+!outputs/dynamic_maze_solver_report_20260620/**
+!outputs/dynamic_maze_jepa_subgoal_starter_20260620_034609/
+!outputs/dynamic_maze_jepa_subgoal_starter_20260620_034609/**
+!outputs/dynamic_maze_bootstrap_20260620_051011/
+!outputs/dynamic_maze_bootstrap_20260620_051011/**
+!outputs/dynamic_maze_belief_lstm_20260620_085948/
+!outputs/dynamic_maze_belief_lstm_20260620_085948/**
+
+# Office/editor temporary files
+~$*
+*.tmp

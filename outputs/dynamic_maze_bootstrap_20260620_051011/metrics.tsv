@@ -1,0 +1,4 @@
+objective	success_rate	mean_steps	mean_blocked_moves	mean_final_manhattan
+learned_value	0.703125	289.453	88.609	6.984
+probe_pos	0.656250	323.234	84.688	6.828
+repr_dist	0.750000	244.875	85.094	4.094

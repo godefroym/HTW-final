@@ -1,0 +1,70 @@
+# Track 7 value training for Two Rooms.
+#
+# Train only a small TD-MPC-style value head on top of a proven frozen Two Rooms
+# world model. The value is learned from the world model's own rollouts and is
+# later used by the `learned_value` MPC objective instead of `repr_dist`.
+logging:
+  log_wandb: false
+  wandb_group:
+  wandb_sweep:
+  log_every: 25
+  exp_suffix: two_rooms_value
+  save_every_n_epochs: 1
+  tqdm_silent: false
+meta:
+  model_folder:            # set on CLI
+  init_from:               # set on CLI to a stable Two Rooms latest.pth.tar
+  load_model: false
+  enable_plan_eval: false
+  eval_every_itr: -1
+  light_eval_freq: 100
+  seed: 1
+data:
+  env_name: two_rooms
+  batch_size: 384
+  num_workers: 16
+  pin_mem: true
+  persistent_workers: true
+  pipeline:
+    mode: stream
+    backend: gpu
+    chunk_size: 3840
+    gen_batch_size: null
+    dtype: bfloat16
+training:
+  use_amp: true
+  dtype: bfloat16
+model:
+  compile: false
+  dobs: 2
+  henc: 32
+  hpre: 32
+  dstc: 32
+  nsteps: 8
+  freeze_world_model: true
+  value_coeff: 1.0
+  value_gamma: 0.95
+  value_lr: 1.e-3
+  encoder_architecture: impala
+  train_rollout: last
+  encoder_skip_connections: true
+  predictor_skip_connections: true
+  regularizer:
+    cov_coeff: 8
+    std_coeff: 16
+    sim_coeff_t: 12
+    idm_coeff: 1
+    first_t_only: false
+    spatial_as_samples: false
+    use_proj: false
+    idm_after_proj: false
+    sim_t_after_proj: false
+optim:
+  epochs: 6
+  lr: 0.001
+  grad_clip_enc: 2.0
+  grad_clip_pred: 2.0
+  weight_decay: 1.e-5
+eval:
+  plan_cfg_path: examples/ac_video_jepa/cfgs/planning/two_rooms/planning_mppi_value_track7.yaml
+  eval_cfg_path: examples/ac_video_jepa/cfgs/eval/two_rooms/eval_track7.yaml

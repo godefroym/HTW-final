@@ -1,0 +1,27 @@
+# Track 7 low-compute method: learned_value with 50 MPPI samples.
+logging:
+  tqdm_silent: true
+  save_gif: false
+  optional_plots: false
+task_specification:
+  goal_source: random_state
+  obs: rgb
+planner:
+  planner_name: mppi
+  num_act_stepped: 1
+  plan_length: 90
+  n_iters: 20
+  num_samples: 50
+  num_elites: 10
+  max_norms:
+    - 2.45
+  max_norm_dims:
+    - 0
+    - 1
+  var_scale: 1.5
+  decode_each_iteration: false
+  planning_objective:
+    objective_type: learned_value
+    sum_all_diffs: true
+    gamma: 0.95
+ctxt_window_time: 1

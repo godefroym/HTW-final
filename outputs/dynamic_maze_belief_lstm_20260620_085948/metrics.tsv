@@ -1,0 +1,2 @@
+objective	success_rate	mean_steps	mean_blocked_moves	mean_final_manhattan
+belief_value	0.734375	271.812	100.500	6.812

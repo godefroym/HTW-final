@@ -1,0 +1,12 @@
+# Track 7 eval: normal Two Rooms, cross-wall by construction.
+# 32 episodes is the smoke/final-prep budget; raise to 96 for final numbers if
+# the queue allows it.
+meta:
+  num_eval_episodes: 32
+  plan_suffix: _track7
+  n_parallel: 1
+env:
+  n_allowed_steps: 200
+  level: normal
+data:
+  env_name: two_rooms
