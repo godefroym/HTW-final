@@ -1,0 +1,13 @@
+{
+  "objective": "vision_repr_dist",
+  "success_rate": 0.875,
+  "mean_steps": 215.125,
+  "mean_blocked_moves": 107.6875,
+  "mean_final_manhattan": 2.875,
+  "num_episodes": 32,
+  "lookahead": 4,
+  "max_steps": 800,
+  "image_size": 128,
+  "observation_mode": "vision",
+  "astar_free": true
+}

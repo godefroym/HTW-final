@@ -26,13 +26,16 @@ costs beat brittle symbolic baselines when the visible map is incomplete.
 - `outputs/dynamic_maze_vision_poc_20260620/`: lightweight egocentric 3D-vision
   POC that renders `[up, down, left, right] x 128 x 128` grayscale observations
   without Chromium, Three.js, or OpenGL.
+- `outputs/dynamic_maze_vision_jepa_20260620_121344/`: completed image-based
+  JEPA run with metrics, logs, and normal/slow GIFs for the 3D-vision planner.
 
 Intentionally excluded: unrelated EB-JEPA examples, local virtualenvs, caches,
 SSH keys, checkpoints, full Slurm run folders, and raw temporary files.
 
 ## Key Results
 
-All rows below use 64 closed-loop evaluation episodes per solver.
+Rows use 64 closed-loop evaluation episodes per solver, except the vision JEPA
+run which uses 32 episodes.
 
 | Method | Success | Mean steps | Blocked moves | Combined success/step ratio |
 |---|---:|---:|---:|---:|
@@ -44,6 +47,7 @@ All rows below use 64 closed-loop evaluation episodes per solver.
 | Bootstrap probe-pos | 65.6% | 323.2 | 84.7 | 13.7% |
 | Bootstrap repr-dist | 75.0% | 244.9 | 85.1 | 20.7% |
 | BeliefLSTM value | 73.4% | 271.8 | 100.5 | 18.2% |
+| Vision JEPA repr-dist | 87.5% | 215.1 | 107.7 | 28.8% |
 
 Interpretation: A*-free world-model objectives reach the same success band as
 the A*-distilled JEPA N=4 controller, but they still pay extra steps and blocked
@@ -57,6 +61,8 @@ the subgoal training loss.
 - Animated GIF evidence: `outputs/dynamic_maze_solver_report_20260620/gifs/`
 - Machine-readable metrics: `outputs/dynamic_maze_solver_report_20260620/summary_metrics.json`
 - 3D-vision POC GIF: `outputs/dynamic_maze_vision_poc_20260620/vision_episode.gif`
+- 3D-vision JEPA run: `outputs/dynamic_maze_vision_jepa_20260620_121344/metrics.tsv`
+- 3D-vision slowed GIFs: `outputs/dynamic_maze_vision_jepa_20260620_121344/01_eval_vision_reprdist/slow_2fps/`
 
 ## Reproduce On Dalia
 

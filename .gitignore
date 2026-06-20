@@ -37,6 +37,9 @@ outputs/*
 !outputs/dynamic_maze_belief_lstm_20260620_085948/**
 !outputs/dynamic_maze_vision_poc_20260620/
 !outputs/dynamic_maze_vision_poc_20260620/**
+!outputs/dynamic_maze_vision_jepa_20260620_121344/
+!outputs/dynamic_maze_vision_jepa_20260620_121344/**
+outputs/dynamic_maze_vision_jepa_20260620_121344/slurm_logs/
 
 # Office/editor temporary files
 ~$*

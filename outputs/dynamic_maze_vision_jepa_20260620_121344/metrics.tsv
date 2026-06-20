@@ -1,0 +1,2 @@
+objective	success_rate	mean_steps	mean_blocked_moves	mean_final_manhattan	image_size	lookahead
+vision_repr_dist	0.875000	215.125	107.688	2.875	128	4
