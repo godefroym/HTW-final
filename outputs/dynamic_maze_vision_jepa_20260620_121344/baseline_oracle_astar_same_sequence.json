@@ -1,0 +1,243 @@
+{
+  "policy": "oracle_replan_same_sequence",
+  "success_rate": 1.0,
+  "mean_steps": 64.8125,
+  "mean_blocked_moves": 0.0,
+  "mean_final_manhattan": 0.0,
+  "num_episodes": 32,
+  "max_steps": 800,
+  "config": {
+    "seed": 7,
+    "observation_mode": "vision",
+    "img_size": 128,
+    "num_doors": 8,
+    "door_toggle_prob": 0.04,
+    "door_initial_open_prob": 0.35
+  },
+  "episodes_detail": [
+    {
+      "ep": 0,
+      "success": true,
+      "steps": 38,
+      "blocked": 0,
+      "manhattan": 0
+    },
+    {
+      "ep": 1,
+      "success": true,
+      "steps": 68,
+      "blocked": 0,
+      "manhattan": 0
+    },
+    {
+      "ep": 2,
+      "success": true,
+      "steps": 68,
+      "blocked": 0,
+      "manhattan": 0
+    },
+    {
+      "ep": 3,
+      "success": true,
+      "steps": 76,
+      "blocked": 0,
+      "manhattan": 0
+    },
+    {
+      "ep": 4,
+      "success": true,
+      "steps": 60,
+      "blocked": 0,
+      "manhattan": 0
+    },
+    {
+      "ep": 5,
+      "success": true,
+      "steps": 60,
+      "blocked": 0,
+      "manhattan": 0
+    },
+    {
+      "ep": 6,
+      "success": true,
+      "steps": 36,
+      "blocked": 0,
+      "manhattan": 0
+    },
+    {
+      "ep": 7,
+      "success": true,
+      "steps": 68,
+      "blocked": 0,
+      "manhattan": 0
+    },
+    {
+      "ep": 8,
+      "success": true,
+      "steps": 90,
+      "blocked": 0,
+      "manhattan": 0
+    },
+    {
+      "ep": 9,
+      "success": true,
+      "steps": 50,
+      "blocked": 0,
+      "manhattan": 0
+    },
+    {
+      "ep": 10,
+      "success": true,
+      "steps": 54,
+      "blocked": 0,
+      "manhattan": 0
+    },
+    {
+      "ep": 11,
+      "success": true,
+      "steps": 82,
+      "blocked": 0,
+      "manhattan": 0
+    },
+    {
+      "ep": 12,
+      "success": true,
+      "steps": 60,
+      "blocked": 0,
+      "manhattan": 0
+    },
+    {
+      "ep": 13,
+      "success": true,
+      "steps": 48,
+      "blocked": 0,
+      "manhattan": 0
+    },
+    {
+      "ep": 14,
+      "success": true,
+      "steps": 52,
+      "blocked": 0,
+      "manhattan": 0
+    },
+    {
+      "ep": 15,
+      "success": true,
+      "steps": 124,
+      "blocked": 0,
+      "manhattan": 0
+    },
+    {
+      "ep": 16,
+      "success": true,
+      "steps": 56,
+      "blocked": 0,
+      "manhattan": 0
+    },
+    {
+      "ep": 17,
+      "success": true,
+      "steps": 72,
+      "blocked": 0,
+      "manhattan": 0
+    },
+    {
+      "ep": 18,
+      "success": true,
+      "steps": 98,
+      "blocked": 0,
+      "manhattan": 0
+    },
+    {
+      "ep": 19,
+      "success": true,
+      "steps": 84,
+      "blocked": 0,
+      "manhattan": 0
+    },
+    {
+      "ep": 20,
+      "success": true,
+      "steps": 52,
+      "blocked": 0,
+      "manhattan": 0
+    },
+    {
+      "ep": 21,
+      "success": true,
+      "steps": 56,
+      "blocked": 0,
+      "manhattan": 0
+    },
+    {
+      "ep": 22,
+      "success": true,
+      "steps": 50,
+      "blocked": 0,
+      "manhattan": 0
+    },
+    {
+      "ep": 23,
+      "success": true,
+      "steps": 62,
+      "blocked": 0,
+      "manhattan": 0
+    },
+    {
+      "ep": 24,
+      "success": true,
+      "steps": 60,
+      "blocked": 0,
+      "manhattan": 0
+    },
+    {
+      "ep": 25,
+      "success": true,
+      "steps": 58,
+      "blocked": 0,
+      "manhattan": 0
+    },
+    {
+      "ep": 26,
+      "success": true,
+      "steps": 80,
+      "blocked": 0,
+      "manhattan": 0
+    },
+    {
+      "ep": 27,
+      "success": true,
+      "steps": 54,
+      "blocked": 0,
+      "manhattan": 0
+    },
+    {
+      "ep": 28,
+      "success": true,
+      "steps": 80,
+      "blocked": 0,
+      "manhattan": 0
+    },
+    {
+      "ep": 29,
+      "success": true,
+      "steps": 74,
+      "blocked": 0,
+      "manhattan": 0
+    },
+    {
+      "ep": 30,
+      "success": true,
+      "steps": 52,
+      "blocked": 0,
+      "manhattan": 0
+    },
+    {
+      "ep": 31,
+      "success": true,
+      "steps": 52,
+      "blocked": 0,
+      "manhattan": 0
+    }
+  ]
+}
