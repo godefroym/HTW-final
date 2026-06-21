@@ -7,12 +7,14 @@ __pycache__/
 .ruff_cache/
 .venv/
 venv/
+*.egg-info/
 
 # Local secrets / cluster access
 ssh/
 *.pem
 id_rsa*
 goma@gmeynard
+
 
 # Training artifacts that should not be committed by default
 runs/
