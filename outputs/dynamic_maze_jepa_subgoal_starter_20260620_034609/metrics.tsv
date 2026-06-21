@@ -1,3 +1,0 @@
-N	success_rate	mean_efficiency	mean_steps	mean_blocked_moves	lookahead
-2	0.578125	0.403244	280.812	103.312	2
-4	0.734375	0.493625	230.688	92.969	4

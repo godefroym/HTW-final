@@ -1,3 +1,0 @@
-method	episodes	success_rate	mean_steps	mean_blocked_moves	mean_final_manhattan	step_eff_vs_astar	combined_success_step_vs_astar
-oracle_astar	32	1.0	64.8125	0.0	0.0	1.0	1.0
-vision_jepa_repr_dist	32	0.875	215.125	107.6875	2.875	0.3012783265543289	0.2636185357350378
